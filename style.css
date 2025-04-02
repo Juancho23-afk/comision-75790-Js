@@ -27,6 +27,9 @@ header{
 }
 
 /*main*/
+main{
+    padding: 20px;
+}
 .container-item {
     display: grid;  
     grid-template-columns: repeat(3, 1fr); 
@@ -40,11 +43,37 @@ header{
     box-shadow: 0 10px 20px rgba(0 , 0 , 0 , 0.20);
 }
 
-.info-product{
-    padding: 15px 30px;
-}
 .items img{
     width: 100%;
     height: 300px;
     object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    transition: all .5s;
+}
+.items figure{
+    overflow: hidden;
+}
+
+.items:hover img{
+    transform: scale(1.2);
+}
+
+.info-product{
+    padding: 15px 30px;
+    line-height: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.price{
+    font-size: 18px;
+    font-weight: 900;
+}
+.info-product button{
+    border: none;
+    background: none;
+    background-color: black;
+    color: white;
+    padding: 15px 10px;
+    cursor: pointer;
 }
