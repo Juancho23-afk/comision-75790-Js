@@ -1,0 +1,50 @@
+*::after,
+*::before,
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    max-width: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: black;
+}
+
+.icon-cart{
+    width: 40px;
+}
+
+img{
+    max-width: 100%
+}
+/*header*/
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0 40px 0;
+}
+
+/*main*/
+.container-item {
+    display: grid;  
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+}
+
+.items{
+    border-radius: 10px;
+}
+.items:hover{
+    box-shadow: 0 10px 20px rgba(0 , 0 , 0 , 0.20);
+}
+
+.info-product{
+    padding: 15px 30px;
+}
+.items img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
