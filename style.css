@@ -34,6 +34,13 @@ header{
     position: relative;
 }
 
+.cart-empty-message{
+    display: none; 
+    text-align: center; 
+    color: gray; 
+    margin-top: 20px;
+}
+
 .count-product{
     position: absolute;
     top: 55%;
