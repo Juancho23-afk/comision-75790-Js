@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "nombre": "Remeras",
+        "precio": 16000,
+        "imagen": "img-tienda/remeras.jpg"
+},
+{
+    "id": 2,
+    "nombre": "Casco adulto",
+    "precio": 90000,
+    "imagen": "img-tienda/casco-adult.jpg"
+},
+{
+    "id": 3,
+    "nombre": "Casco niño",
+    "precio": 60000,
+    "imagen": "img-tienda/casco.jpg"
+},
+{
+    "id": 4,
+    "nombre": "Chalecos",
+    "precio": 40000,
+    "imagen": "img-tienda/chalecos.jpg"
+},
+{
+    "id": 5,
+    "nombre": "Pantalones",
+    "precio": 16000,
+    "imagen": "img-tienda/pantalones.jpg"
+},
+{
+    "id": 6,
+    "nombre": "Camperas",
+    "precio": 45000,
+    "imagen": "img-tienda/camperas.jpg"
+}
+]
