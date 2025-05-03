@@ -47,6 +47,14 @@ for (let i = 0; i < botonesAgregar.length; i++) {
         totalActual += precioSoloNumero;
         totalPagar.textContent = `$${totalActual.toLocaleString()}`;
 
+        //agrego el alert de sweet alert
+        Swal.fire({
+            title: '¡Producto añadido!',
+            text: `${tituloProducto} ha sido añadido al carrito.`,
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+
         // Agrego eliminar productode carrito
         const botonEliminar = nuevoElemento.querySelector('.icon-close');
         botonEliminar.addEventListener('click', function () {
