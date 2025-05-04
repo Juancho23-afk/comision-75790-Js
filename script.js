@@ -5,39 +5,40 @@ const contadorProductos = document.getElementById('contador-productos');
 const mensajeVacio = document.querySelector('.cart-empty-message');
 const continerItems = document.querySelector('.container-item');
 
+//Boton de vaciar carrito
+const btnVaciarCarrito = document.createElement('button');
+btnVaciarCarrito.textContent = 'Vaciar carrito';
+btnVaciarCarrito.classList.add('btn-vaciar');
+containerCartProducts.appendChild(btnVaciarCarrito);
+
 let contador = 0;
 let totalActual = 0;
 
-// Muestra y oculta el carrito
+//Mostrar y ocultar carrito
 btnCart.addEventListener('click', function () {
     containerCartProducts.classList.toggle('hidden-cart');
 });
 
-// Función para cargar los productos desde el JSON
+//Carga productos del JSON
 document.addEventListener('DOMContentLoaded', function () {
     fetch('productos.json')
         .then(response => response.json())
         .then(data => {
             cargarProductos(data);
-        })
-        .catch(error => {
-            console.error('Error al cargar los productos:', error);
-            alert('No se pudieron cargar los productos. Inténtalo más tarde.');
         });
 
     const dataGuardada = localStorage.getItem('carritoHTML');
     const contadorGuardado = localStorage.getItem('contador');
     const totalGuardado = localStorage.getItem('totalActual');
 
-    if (dataGuardada) {
+    if (dataGuardada && contadorGuardado && totalGuardado) {
         const contenedorTemporal = document.createElement('div');
         contenedorTemporal.innerHTML = dataGuardada;
         const productos = contenedorTemporal.querySelectorAll('.cart-product');
 
-        for (let i = 0; i < productos.length; i++) {
-            const producto = productos[i];
+        productos.forEach(producto => {
             const precioProducto = producto.querySelector('.precio-producto-carrito').textContent;
-            const precioNum = parseInt(precioProducto.replace('$', '').replace(',', ''));
+            const precioNum = parseInt(precioProducto.replace('$', '').replace(/\./g, ''));
             const totalDiv = containerCartProducts.querySelector('.cart-total');
             containerCartProducts.insertBefore(producto, totalDiv);
 
@@ -46,22 +47,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 producto.remove();
                 contador--;
                 totalActual -= precioNum;
-                contadorProductos.textContent = contador;
-                totalPagar.textContent = contador > 0 ? `$${totalActual.toLocaleString()}` : "$0";
+                actualizarContadores();
                 guardarCarritoEnLocalStorage();
                 actualizarMensajeCarritoVacio();
             });
-        }
+        });
 
-        contador = contadorGuardado ? parseInt(contadorGuardado) : 0;
-        totalActual = totalGuardado ? parseInt(totalGuardado) : 0;
-        contadorProductos.textContent = contador;
-        totalPagar.textContent = contador > 0 ? `$${totalActual.toLocaleString()}` : "$0";
+        contador = parseInt(contadorGuardado);
+        totalActual = parseInt(totalGuardado);
+        actualizarContadores();
+    } else {
+        contador = 0;
+        totalActual = 0;
+        actualizarContadores();
+        actualizarMensajeCarritoVacio();
     }
-
-    actualizarMensajeCarritoVacio();
 });
 
+//Agrega productos al HTML desde el JSON
 function cargarProductos(productos) {
     continerItems.innerHTML = '';
     productos.forEach(producto => {
@@ -110,19 +113,19 @@ function agregarAlCarrito(id, nombre, precio, imagen) {
         </svg>
     `;
 
-    containerCartProducts.appendChild(productoEnCarrito);
+    const totalDiv = containerCartProducts.querySelector('.cart-total');
+    containerCartProducts.insertBefore(productoEnCarrito, totalDiv);
+
     contador++;
     totalActual += precio;
-    contadorProductos.textContent = contador;
-    totalPagar.textContent = `$${totalActual.toLocaleString()}`;
-    
+    actualizarContadores();
+
     const botonEliminar = productoEnCarrito.querySelector('.icon-close');
     botonEliminar.addEventListener('click', function () {
         productoEnCarrito.remove();
         contador--;
         totalActual -= precio;
-        contadorProductos.textContent = contador;
-        totalPagar.textContent = contador > 0 ? `$${totalActual.toLocaleString()}` : "$0";
+        actualizarContadores();
         guardarCarritoEnLocalStorage();
         actualizarMensajeCarritoVacio();
     });
@@ -140,6 +143,23 @@ function mostrarAlerta() {
     });
 }
 
+//Vaciar carrito
+btnVaciarCarrito.addEventListener('click', function () {
+    const productos = containerCartProducts.querySelectorAll('.cart-product');
+    productos.forEach(p => p.remove());
+
+    contador = 0;
+    totalActual = 0;
+    actualizarContadores();
+    actualizarMensajeCarritoVacio();
+    localStorage.clear();
+});
+
+function actualizarContadores() {
+    contadorProductos.textContent = contador;
+    totalPagar.textContent = contador > 0 ? `$${totalActual.toLocaleString()}` : "$0";
+}
+
 function guardarCarritoEnLocalStorage() {
     const carritoHTML = containerCartProducts.innerHTML;
     localStorage.setItem('carritoHTML', carritoHTML);
@@ -148,9 +168,5 @@ function guardarCarritoEnLocalStorage() {
 }
 
 function actualizarMensajeCarritoVacio() {
-    if (contador === 0) {
-        mensajeVacio.style.display = 'block';
-    } else {
-        mensajeVacio.style.display = 'none';
-    }
+    mensajeVacio.style.display = contador === 0 ? 'block' : 'none';
 }

@@ -137,6 +137,24 @@ header{
 
 
 /*main*/
+.btn-vaciar {
+    background-color: black; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    border-radius: 5px;
+    display: block; 
+    margin: 20px auto;
+    text-align: center; 
+    width: 200px; 
+}
+
+.btn-vaciar:hover {
+    background-color: #333; 
+}
+
 .imagen-principal{
     margin-top: 20px;
     margin-bottom: 20px;
