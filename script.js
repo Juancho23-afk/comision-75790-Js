@@ -14,11 +14,11 @@ btnCart.addEventListener('click', function () {
 });
 
 
-/*funcion para cargar los productos desde el Json */
+/*funcion para cargar los productos desde el json */
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Recupero los datos del carrito guardados en localStorage
+    
     const dataGuardada = localStorage.getItem('carritoHTML');
     const contadorGuardado = localStorage.getItem('contador');
     const totalGuardado = localStorage.getItem('totalActual');
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const totalDiv = containerCartProducts.querySelector('.cart-total');
             containerCartProducts.insertBefore(producto, totalDiv);
 
-            // Agrego la funcionalidad de eliminar productos del localStorage
+            
             const botonEliminar = producto.querySelector('.icon-close');
             botonEliminar.addEventListener('click', function () {
                 producto.remove();
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
     actualizarMensajeCarritoVacio();
 });
 
-// Función para guardar los productos en localStorage
+
 function guardarCarritoEnLocalStorage() {
     const productos = containerCartProducts.querySelectorAll('.cart-product');
     const tempDiv = document.createElement('div');
@@ -73,7 +73,7 @@ function guardarCarritoEnLocalStorage() {
     localStorage.setItem('totalActual', totalActual);
 }
 
-// Mostrar y ocultar el mensaje de "carrito vacío"
+
 function actualizarMensajeCarritoVacio() {
     const productos = containerCartProducts.querySelectorAll('.cart-product');
     if (productos.length === 0) {
