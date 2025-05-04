@@ -22,9 +22,22 @@ btnCart.addEventListener('click', function () {
 //Carga productos del JSON
 document.addEventListener('DOMContentLoaded', function () {
     fetch('productos.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al cargar los productos');
+            }
+            return response.json();
+        })
         .then(data => {
             cargarProductos(data);
+        })
+        .catch(error => {
+            console.error('Error al obtener los productos:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un problema al cargar los productos. Intenta más tarde.',
+            });
         });
 
     const dataGuardada = localStorage.getItem('carritoHTML');
